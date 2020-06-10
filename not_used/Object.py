@@ -6,15 +6,10 @@ from Material import Material
 
 
 class Object:  # metaclass=abc.ABCMeta
-    def __init__(self, hit_info, color):
+    def __init__(self, color):
         self.material = Material(color)
-        self.hit_info = hit_info
 
     # @abc.abstractmethod
-    def intersect(self, ray, hit_info):
+    def intersect(self, ray):
         pass
 
-
-asd = Object((1,2,3),(1,0,0))
-print(asd.material.color)
-print(asd.hit_info)

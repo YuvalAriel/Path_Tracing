@@ -1,55 +1,47 @@
-import numpy as np
-import math
-
+from math import sqrt
 from Vec3D import Vec3D
-from Ray import Ray
-from Object import Object
 from Material import Material
 
 
-class Sphere(Object):
+class Sphere:
+    """material parameter should receive a Material Class as an argument"""
 
-    def __init__(self, center, radius, hit_info, color):
-        super().__init__(hit_info, color)
-        self.material = Material(color)
-        self.hit_info = hit_info
-        self.center = Vec3D(center)
+    def __init__(self, center, radius=2, material=Material([0, 0, 1])):
+        self.center = Vec3D(center[0], center[1], center[2])
         self.radius = float(radius)
+        self.material = material
 
-    def intersect(self, ray, hit_info):
+    def sphere_intersect(self, ray):
+        """ returns d if intersected. if not returns false. hit_point = origin +d*l"""
         # check 3 cases: 1. ray missed sphere. 2. ray hit sphere at one point. 3. ray hit sphere at two points.
         # record Hit details: location, normal, ..
         # need to solve for d: d^2(ldotl) + 2d(ldot(o-c)) + (o-c)dot(o-c) - r^2 = 0. where:
         # d = distance along ray from starting point. l = direction of ray(a unit vector). o = origin of ray.
         # c = center of sphere. r = radius of sphere.
-        l = ray.normalize()
+        l = ray.norm_dir
         o = ray.origin
         c = self.center
         r = self.radius
-        co = o - c  # the vector from center of sphere to origin of ray. direction doesnt matter because in power 2.
-        determinant = (l.dot(co)) ** 2 - (co.dot(co) - r ** 2)
-        if determinant < 0:  # ray missed the sphere
+        co = o.vec_sub(c)  # the vector from center of sphere to origin of ray.
+        discriminant = (l.vec_dot(co)) ** 2 - (co.vec_dot(co) - (r * r))  # simplified because |l|^2 = 1 always(if norm)
+        if discriminant <= 0:  # ray missed the sphere, also if =0 cause then ray hits the exact edge.
+            # if -l.dot(co)=0 then direction of ray in 90deg to co. orthogonal. no hit unless o is inside sphere.
             return False
-        elif determinant == 0:
-            # d = -l.dot(co)
-            return False  # for simplicity. not sure a ray hitting the exact edge of a sphere would produce much light.
-        else:
-            # has two intersection points. need to pick closest one to ray origin.
-            determinant = math.sqrt(determinant)
-            d1 = -l.dot(co) + determinant
-            d2 = -l.dot(co) - determinant
-            if abs(d2) > abs(d1): # if d1 = -d2 then -l.dot(co)=0 and that means direction of ray in 90deg to co
-                return d1
-            else:
-                return d2
+        if co.vec_dot(co) < r * r:
+            print("oops, ray origin is inside sphere")
+            return False
+        if l.vec_dot(co) > 0:
+            # could be that camera or objects are misaligned and d is negative.
+            # print("oops, object behind ray direction. reorient camera or objects.")
+            return False
+        else:  # has two intersection points. need to pick closest one to ray origin.
+            # d1 = -l.vec_dot(co) + sqrt(discriminant) dot prod of l and co is negative when l is directed at sphere.
+            d = -l.vec_dot(co) - sqrt(discriminant)  # always the smaller option, closer to ray origin.
+            return d
             #  create record of hit position. include: position3d, normal, inside/outside? norm=-norm?
             #  ray.hit_pos = o + l*d
-            #  ray.hit_norm = (ray.hit_pos - c)/(math.sqrt((ray.hit_pos - c).dot((ray.hit_pos - c))))
+            #  ray.hit_norm = (ray.hit_pos - c)/(sqrt((ray.hit_pos - c).dot((ray.hit_pos - c))))
 
-    def sphere_norm(self,point):
-        return point.sub(self.center).normalize()
+    def get_hit_norm(self, hit_point):
+        return hit_point.vec_sub(self.center).vec_normalize()
 
-
-sphere = Sphere(radius=5, center=(15, 0, 0))
-hitting_ray = Ray(origin=(0, 0, 0), direction=(3, 0, 0))
-sphere.intersect(ray=hitting_ray)

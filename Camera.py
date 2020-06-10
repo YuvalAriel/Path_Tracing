@@ -40,7 +40,7 @@ class Camera:
         zoom_effect = tan(self.fov / 2 * pi / 180)
         pixelCamerax *= zoom_effect  # undo comment when fov!=90 . change to round to 1 and not 0.9999
         pixelCameray *= zoom_effect
-        # final point in pixel = pixelcamerax, pixelcameray, -1. add rng to sample several inside each pixel.
+        # final point in pixel = (pixelcamerax, pixelcameray, -1). add rng to sample several inside each pixel.
         pixel_size = zoom_effect * 2 / self.img_height
         # create a variable whose value ranges from [-pixel_size/2,pixel_size/2] using the rng.
         rnd_addition = random.uniform(-pixel_size / 2, pixel_size / 2)

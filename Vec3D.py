@@ -28,8 +28,4 @@ class Vec3D:
     def vec_normalize(self):
         return Vec3D(self.vec_multiplication(1/(math.sqrt(self.vec_dot(self)))))
 
-    # @staticmethod  # why static?
-    # def sample_hemi():
-    #     u1 = random.uniform(0.0, 1.0)
-    #     print("need to define")
 

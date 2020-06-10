@@ -2,11 +2,12 @@ import numpy as np
 
 
 class Material:
-    def __init__(self, color3D):
-        self.color = np.array(color3D)
-        self.reflection = 1
-        self.diffuse = 1
-        self.specular = 0
+    """send color as list of 3 floats in range of 0-1"""
+    def __init__(self, color):
+        self.color = np.array(color)
+        self.reflection = 0.5
+        # self.diffuse = 1
+        # self.specular = 0
 
 
 
