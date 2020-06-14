@@ -12,9 +12,7 @@ class Sphere:
         self.material = material
 
     def sphere_intersect(self, ray):
-        """ returns d if intersected. if not returns false. hit_point = origin +d*l"""
-        # check 3 cases: 1. ray missed sphere. 2. ray hit sphere at one point. 3. ray hit sphere at two points.
-        # record Hit details: location, normal, ..
+        """ returns d if intersected. if not returns False. hit_point = origin +d*l"""
         # need to solve for d: d^2(ldotl) + 2d(ldot(o-c)) + (o-c)dot(o-c) - r^2 = 0. where:
         # d = distance along ray from starting point. l = direction of ray(a unit vector). o = origin of ray.
         # c = center of sphere. r = radius of sphere.
@@ -31,16 +29,13 @@ class Sphere:
             print("oops, ray origin is inside sphere")
             return False
         if l.vec_dot(co) > 0:
-            # could be that camera or objects are misaligned and d is negative.
-            # print("oops, object behind ray direction. reorient camera or objects.")
+            # meaning the ray direction and the direction from the sphere center to the ray origin are the same.
+            # could only happen if sphere is behind ray direction.
             return False
         else:  # has two intersection points. need to pick closest one to ray origin.
-            # d1 = -l.vec_dot(co) + sqrt(discriminant) dot prod of l and co is negative when l is directed at sphere.
+            # d1 = -l.vec_dot(co) + sqrt(discriminant)  # dot prod of l and co is negative when l is directed at sphere.
             d = -l.vec_dot(co) - sqrt(discriminant)  # always the smaller option, closer to ray origin.
             return d
-            #  create record of hit position. include: position3d, normal, inside/outside? norm=-norm?
-            #  ray.hit_pos = o + l*d
-            #  ray.hit_norm = (ray.hit_pos - c)/(sqrt((ray.hit_pos - c).dot((ray.hit_pos - c))))
 
     def get_hit_norm(self, hit_point):
         return hit_point.vec_sub(self.center).vec_normalize()
