@@ -45,8 +45,7 @@ class Camera:
         # create a variable whose value ranges from [-pixel_size/2,pixel_size/2] using the rng.
         rnd_addition = random.uniform(-pixel_size / 2, pixel_size / 2)
         # print(random.uniform(-pixel_size / 2, pixel_size / 2))
-        # point = Vec3D(pixelCamerax + rnd_addition, pixelCameray + rnd_addition, -1)
-        point = Vec3D(pixelCamerax, pixelCameray, -1)
+        point = Vec3D(pixelCamerax + rnd_addition, pixelCameray + rnd_addition, -1)
 
         ray_dir = point.vec_sub(self.cam_center)
 

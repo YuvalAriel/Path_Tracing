@@ -1,5 +1,4 @@
 import math
-import random
 
 
 class Vec3D:
@@ -22,10 +21,13 @@ class Vec3D:
     def vec_add(self, other):
         return Vec3D(self.x + other.x, self.y + other.y, self.z + other.z)
 
-    def vec_multiplication(self, factor):
+    def vec_mul(self, factor):
         return Vec3D(self.x * factor, self.y * factor, self.z * factor)
 
     def vec_normalize(self):
-        return Vec3D(self.vec_multiplication(1/(math.sqrt(self.vec_dot(self)))))
+        return Vec3D(self.vec_mul(1 / (math.sqrt(self.vec_dot(self)))))
 
-
+    def vec_cross(self, other):
+        return Vec3D(self.y * other.z - self.z * other.y,
+                     self.z * other.x - self.x * other.z,
+                     self.x * other.y - self.y * other.x)

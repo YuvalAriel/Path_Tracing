@@ -1,7 +1,7 @@
 from Ray import Ray
 from Sphere import Sphere
 from Scene import Scene
-
+from Vec3D import Vec3D
 
 def test_find_closest_intersection():
     #(noam) Try not to trivialize 2 axies to improve test coverage. Avoid repeating values also. :)
@@ -9,8 +9,8 @@ def test_find_closest_intersection():
     sphere2 = Sphere(radius=1, center=(6, 0, 0))
     sphere3 = Sphere(radius=1, center=(4, 0, 0))
     scene = Scene(sphere1, sphere2, sphere3)
-    hitting_ray = Ray(origin=(0, 0, 0), direction=(1, 0, 0))
-    missing_ray = Ray(origin=(0, 0, 0), direction=(0, 1, 0))
+    hitting_ray = Ray(origin=Vec3D(0, 0, 0), direction=Vec3D(1, 0, 0))
+    missing_ray = Ray(origin=Vec3D(0, 0, 0), direction=Vec3D(0, 1, 0))
 
     #(noam) material and normal are unused. Consider asserting on those.
     #(noam) Please use full names of variable nor1 is not a common abreviation.
