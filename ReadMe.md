@@ -24,7 +24,7 @@ Here are some rendered images i rendered demonstrating the current capabilities 
 ![Project Image](pics/blueSk.png)
 
 
-[Back To The Top](#Path Tracing)
+[Back To The Top](#Path-Tracing)
 
 ---
 
@@ -52,4 +52,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-[Back To The Top](#Path Tracing)
+[Back To The Top](#Path-Tracing)
