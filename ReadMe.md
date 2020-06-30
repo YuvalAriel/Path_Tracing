@@ -15,13 +15,13 @@ Inspired by Matt Godbolt's [presentation](https://youtu.be/HG6c4Kwbv4I) at CppCo
 
 Here are some rendered images i rendered demonstrating the current capabilities of this Path Tracer such as shadow effects from multiple light sources and reflectance:
 
-![Project Image](pics/shadow_effect.png)
-
-![Project Image](pics/moon.png)
-
 ![Project Image](pics/reflectance.png)
 
 ![Project Image](pics/blueSk.png)
+
+![Project Image](pics/moon.png)
+
+![Project Image](pics/shadow_effect.png)
 
 
 [Back To The Top](#Path-Tracing)
